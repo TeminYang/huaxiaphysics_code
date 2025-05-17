@@ -37,6 +37,54 @@
 ![“趣味物理馆”中的科普管家](images/“趣味物理馆”中的科普管家.jpg)
 
 ## 使用说明
+### 手动构建
+1. 确保已安装Unity 2021或更高版本
+2. 导入项目到Unity Hub
+3. 安装必要插件和SDK：
+   - AR Foundation
+   - XR Interaction Toolkit
+   - TextMeshPro
+4. 关键代码示例：
+```csharp
+// PlayerController.cs 中的移动控制核心代码
+public class PlayerController : MonoBehaviour
+{
+    public float moveSpeed = 5f;
+    private CharacterController controller;
+
+    void Start()
+    {
+        controller = GetComponent<CharacterController>();
+    }
+
+    void Update()
+    {
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        controller.Move(move * Time.deltaTime * moveSpeed);
+    }
+}
+```
+
+```csharp
+// SceneChange.cs 中的场景切换核心代码
+public class SceneChange : MonoBehaviour
+{
+    public string sceneName;
+    
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+    }
+}
+```
+5. 构建设置：
+   - 选择目标平台(Windows/Android)
+   - 配置Player Settings
+   - 构建生成可执行文件
+
 ### 游玩方式1：VR完整体验
 
 - 点开项目的exe运行文件，可以进入到我们的展馆，展馆采用HDRP渲染管线，在unity中有更真实的灯管渲染。
